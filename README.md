@@ -13,7 +13,6 @@ Whether you're a content creator, educator, or business, this tool streamlines t
 * Burned-in subtitles for improved viewer engagement
 * Precise clip extraction from long-form videos
 * Support for podcasts, interviews, webinars, and other spoken-content videos
-* Modular architecture for adding custom clipping logic
 
 ---
 
