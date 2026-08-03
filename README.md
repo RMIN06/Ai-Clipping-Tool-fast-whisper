@@ -10,18 +10,18 @@
 
 ---
 
-## ✨ Features
+## Features
 
-- ⚡ Fast, word-level transcription via Faster-Whisper (GPU-accelerated)
-- 🎯 LLM-based highlight detection — finds the most "clip-worthy" 40–55s moments automatically
-- 🔧 Auto-correction: stretches/trims any AI-picked clip to fit the target duration window
-- 🛟 Fallback auto-slicer if the LLM output is malformed (guarantees output every run)
-- 📝 TikTok-style word-by-word `.ass` subtitle burn-in (9:16 vertical crop from 16:9 source)
-- 💸 Zero cloud API cost — transcription and highlight-picking both run locally
+- Fast, word-level transcription via Faster-Whisper (GPU-accelerated)
+- LLM-based highlight detection — finds the most "clip-worthy" 40–55s moments automatically
+- Auto-correction: stretches/trims any AI-picked clip to fit the target duration window
+- Fallback auto-slicer if the LLM output is malformed (guarantees output every run)
+- TikTok-style word-by-word `.ass` subtitle burn-in (9:16 vertical crop from 16:9 source)
+- Zero cloud API cost — transcription and highlight-picking both run locally
 
 ---
 
-## 🔧 Tech Stack
+## Tech Stack
 
 | Component | Tool |
 |---|---|
@@ -32,7 +32,7 @@
 
 ---
 
-## 🧭 How It Works
+## How It Works
 
 ```mermaid
 flowchart TD
@@ -160,7 +160,7 @@ Return ONLY a strict JSON array of objects with keys: "start", "end", and "reaso
 
 It's paired with `format="json"` in the Ollama call to force structured output. The pipeline then validates and corrects any clip outside the 40–55s window, and auto-slices the transcript into fixed intervals if the LLM's JSON response fails to parse.
 
-## 🚀 Roadmap
+## Roadmap
 
 - [ ] Multi-language transcription & subtitles
 - [ ] Speaker detection
@@ -172,4 +172,24 @@ It's paired with `format="json"` in the Ollama call to force structured output. 
 
 ## 📜 License
 
-MIT — free to use, modify, and distribute.
+MIT License
+
+Copyright (c) 2026 RMIN06
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
