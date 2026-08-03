@@ -75,49 +75,26 @@ cd Ai-Clipping-Tool-fast-whisper
 pip install faster-whisper ollama
 ```
 
-FFmpeg is a system binary, not a pip package — install it via your OS package manager:
+(FFmpeg is a system binary, not a pip package — install it via your OS package manager: `sudo apt install ffmpeg` / `choco install ffmpeg` / `brew install ffmpeg`.)
 
-```bash
-# Ubuntu / Debian
-sudo apt install ffmpeg
+Note: the scripts are written Colab-style (/content/drive/... paths, link_drive.py for Drive mounting). Below is the adapted local-PC flow — swap the paths as shown.
 
-# Windows (via Chocolatey)
-choco install ffmpeg
-
-# macOS (via Homebrew)
-brew install ffmpeg
-```
-
-### 4. Pull and start the local LLM
+### 4. Pull the local LLM
 
 ```bash
 ollama pull llama3.2
-ollama serve
+ollama serve   # keep this running in a separate terminal while the pipeline runs
 ```
 
-Keep `ollama serve` running in a separate terminal while the pipeline runs.
+### 5. Set your video path / swap Colab paths for local files
 
-### 5. Point the scripts at your local files
-
-In **`pipeline.py`**, replace the Colab path:
-
-```python
-video_path = "/content/drive/MyDrive/podcast"
-```
-
-with your local video:
+In `pipeline.py`, replace the Colab path example with your local file. Example:
 
 ```python
 video_path = "./input/podcast.mp4"
 ```
 
-In **`clip_renderer.py`**, replace the Colab output folder:
-
-```python
-OUTPUT_DIR = "/content/drive/MyDrive/Viral_Clips"
-```
-
-with a local output folder:
+And in `clip_renderer.py`, set the local output folder:
 
 ```python
 OUTPUT_DIR = "./output/Viral_Clips"
@@ -125,22 +102,49 @@ OUTPUT_DIR = "./output/Viral_Clips"
 
 > Skip `link_drive.py` entirely on a local machine — it exists only to mount Google Drive inside Colab.
 
-### 6. Run the pipeline
+4. Pull the local LLM
+bash
+ollama pull llama3.2
+ollama serve   # keep this running in the background
+5. Set your video path
+
+## 📁 Project Structure
+
+```
+Ai-Clipping-Tool-fast-whisper/
+├── pipeline.py         # Transcription + LLM highlight detection
+├── clip_renderer.py    # FFmpeg trimming, cropping, subtitle burn-in
+├── link_drive.py        # Google Drive mount helper (Colab only)
+├── ollama.py            # Ollama client wrapper
+└── README.md
+```
+
+with your local file, e.g.:
+
+```python
+video_path = "./input/podcast.mp4"
+```
+
+```python
+OUTPUT_DIR = "./output/Viral_Clips"
+```
+
+to:
+
+6. Run the pipeline in order
 
 ```bash
 python pipeline.py         # transcribe + get highlight timestamps from the LLM
 python clip_renderer.py    # trim, crop to 9:16, burn subtitles, export
 ```
 
-Finished clips land in:
+Your finished clips land in:
 
 ```
 ./output/Viral_Clips/viral_clip_1.mp4
 ./output/Viral_Clips/viral_clip_2.mp4
 ...
 ```
-
----
 
 ## 🧠 The Core Prompt
 
@@ -156,21 +160,6 @@ Return ONLY a strict JSON array of objects with keys: "start", "end", and "reaso
 
 It's paired with `format="json"` in the Ollama call to force structured output. The pipeline then validates and corrects any clip outside the 40–55s window, and auto-slices the transcript into fixed intervals if the LLM's JSON response fails to parse.
 
----
-
-## 📁 Project Structure
-
-```
-Ai-Clipping-Tool-fast-whisper/
-├── pipeline.py         # Transcription + LLM highlight detection
-├── clip_renderer.py    # FFmpeg trimming, cropping, subtitle burn-in
-├── link_drive.py        # Google Drive mount helper (Colab only)
-├── ollama.py            # Ollama client wrapper
-└── README.md
-```
-
----
-
 ## 🚀 Roadmap
 
 - [ ] Multi-language transcription & subtitles
@@ -180,8 +169,6 @@ Ai-Clipping-Tool-fast-whisper/
 - [ ] Web UI for drag-and-drop uploads
 - [ ] Auto title/description generation
 - [ ] Direct publishing to YouTube Shorts / Instagram Reels / TikTok
-
----
 
 ## 📜 License
 
