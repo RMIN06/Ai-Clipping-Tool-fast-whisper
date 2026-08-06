@@ -47,8 +47,6 @@ flowchart TD
     I --> J[Export viral_clip_1.mp4, viral_clip_2.mp4 ...]
 ```
 
-> GitHub renders `mermaid` code blocks as live flowcharts automatically — no image upload needed.
-
 ---
 
 ## 🖥️ Full Setup Guide (Local PC)
